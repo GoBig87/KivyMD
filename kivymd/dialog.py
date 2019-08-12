@@ -200,7 +200,7 @@ class BaseDialog(ThemableBehavior, ModalView):
 
     def set_content(self, instance_content_dialog):
         def _events_callback(result_press):
-            self.dismiss()
+            #self.dismiss()
             if result_press:
                 self.events_callback(result_press, self)
 

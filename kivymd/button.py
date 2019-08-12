@@ -355,6 +355,21 @@ Builder.load_string('''
     theme_text_color: 'Custom'
     text_color: root.specific_text_color
 
+<MDRaisedIconButton>
+    md_bg_color: root.theme_cls.primary_color
+    theme_text_color: 'Custom'
+    text_color: root.specific_text_color
+    
+    BoxLayout:
+        spacing: dp(10)
+
+        MDIcon:
+            id: lbl_ic
+            icon: root.icon
+            theme_text_color: 'Custom'
+            text_color: root.specific_text_color
+            size_hint_x: None
+            width: self.texture_size[0]
 
 <MDFloatingActionButton>
     # Defaults to 56-by-56 and a background of the accent color according to
@@ -721,5 +736,10 @@ class MDRoundFlatIconButton(MDRoundFlatButton, BaseFlatIconButton):
 
 
 class MDFillRoundFlatIconButton(MDFillRoundFlatButton):
+    icon = StringProperty('android')
+    increment_width = dp(80)
+
+class MDRaisedIconButton(BaseRectangularButton, RectangularElevationBehavior,
+                     BaseRaisedButton, BasePressedButton):
     icon = StringProperty('android')
     increment_width = dp(80)
