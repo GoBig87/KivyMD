@@ -204,7 +204,6 @@ Builder.load_string('''
         halign: 'center'
         opposite_colors: root.opposite_colors
 
-
 <BaseRectangularButton>
     canvas:
         Clear
@@ -295,7 +294,7 @@ Builder.load_string('''
 <MDRectangleFlatIconButton>
     canvas.before:
         Color:
-            rgba: app.theme_cls.primary_color
+            rgba: self.border_color
         Line:
             width: 1
             rectangle: (self.x, self.y, self.width, self.height)
@@ -314,6 +313,8 @@ Builder.load_string('''
             text_color: root.theme_cls.primary_color
             size_hint_x: None
             width: self.texture_size[0]
+            valign: 'middle'
+            halign: 'left'
 
         MDLabel:
             id: lbl_txt
@@ -323,6 +324,8 @@ Builder.load_string('''
             shorten: True
             theme_text_color: 'Custom'
             text_color: root.theme_cls.primary_color
+            valign: 'middle'
+            halign: 'center'
 
 
 <MDRoundFlatIconButton>
@@ -652,6 +655,7 @@ class BaseRectangularButton(RectangularRippleBehavior, BaseButton):
 
 class MDIconButton(BaseRoundButton, BaseFlatButton, BasePressedButton):
     icon = StringProperty('checkbox-blank-circle')
+    font_size = NumericProperty(30)
 
 
 class MDFlatButton(BaseRectangularButton, BaseFlatButton, BasePressedButton):
@@ -672,6 +676,7 @@ class MDRaisedButton(BaseRectangularButton, RectangularElevationBehavior,
 class MDFloatingActionButton(BaseRoundButton, CircularElevationBehavior,
                              BaseRaisedButton):
     icon = StringProperty('android')
+    font_size = NumericProperty(30)
     background_palette = StringProperty('Accent')
 
 
@@ -727,8 +732,8 @@ class MDFillRoundFlatButton(MDRoundFlatButton):
     pass
 
 
-class MDRectangleFlatIconButton(BaseFlatIconButton):
-    pass
+class MDRectangleFlatIconButton(BaseFlatIconButton, BaseRaisedButton, BasePressedButton, RectangularElevationBehavior):
+    border_color = ListProperty()
 
 
 class MDRoundFlatIconButton(MDRoundFlatButton, BaseFlatIconButton):
