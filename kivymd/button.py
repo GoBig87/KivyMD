@@ -204,6 +204,7 @@ Builder.load_string('''
         halign: 'center'
         opposite_colors: root.opposite_colors
 
+
 <BaseRectangularButton>
     canvas:
         Clear
@@ -314,7 +315,7 @@ Builder.load_string('''
             size_hint_x: None
             width: self.texture_size[0]
             valign: 'middle'
-            halign: 'left'
+            halign: 'center'
 
         MDLabel:
             id: lbl_txt
@@ -325,7 +326,7 @@ Builder.load_string('''
             theme_text_color: 'Custom'
             text_color: root.theme_cls.primary_color
             valign: 'middle'
-            halign: 'center'
+            halign: 'left'
 
 
 <MDRoundFlatIconButton>
@@ -365,7 +366,10 @@ Builder.load_string('''
     
     BoxLayout:
         spacing: dp(10)
-
+        
+        MDLabel:
+            id: spacer1
+            
         MDIcon:
             id: lbl_ic
             icon: root.icon
@@ -373,6 +377,11 @@ Builder.load_string('''
             text_color: root.specific_text_color
             size_hint_x: None
             width: self.texture_size[0]
+            valign: 'middle'
+            halign: 'center'
+            
+        MDLabel:
+            id: spacer2
 
 <MDFloatingActionButton>
     # Defaults to 56-by-56 and a background of the accent color according to
@@ -657,7 +666,6 @@ class MDIconButton(BaseRoundButton, BaseFlatButton, BasePressedButton):
     icon = StringProperty('checkbox-blank-circle')
     font_size = NumericProperty(30)
 
-
 class MDFlatButton(BaseRectangularButton, BaseFlatButton, BasePressedButton):
     pass
 
@@ -734,7 +742,6 @@ class MDFillRoundFlatButton(MDRoundFlatButton):
 
 class MDRectangleFlatIconButton(BaseFlatIconButton, BaseRaisedButton, BasePressedButton, RectangularElevationBehavior):
     border_color = ListProperty()
-
 
 class MDRoundFlatIconButton(MDRoundFlatButton, BaseFlatIconButton):
     pass
