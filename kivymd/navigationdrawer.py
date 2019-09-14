@@ -182,25 +182,24 @@ Builder.load_string('''
 
 <NavigationDrawerIconButton>
     theme_text_color:
-        'Primary' if not root._active \
+        'Primary' if not root._active\
         else 'Custom' if root.use_active else 'Primary'
     text_color:
-        root.theme_cls.secondary_text_color \
-        if not root._active else root.active_color if \
-        root.active_color_type == "custom" else root._active_color \
+        root.theme_cls.secondary_text_color\
+        if not root._active else root.active_color if\
+        root.active_color_type == "custom" else root._active_color\
         if root.use_active else root.theme_cls.secondary_text_color
 
     NDIconLabel:
         id: _icon
         font_style: 'Icon'
         theme_text_color:
-            'Secondary' if not root._active \
+            'Secondary' if not root._active\
             else 'Custom' if root.use_active else 'Custom'
         text_color:
-            root.icon_color if root.icon_color else \
-            root.theme_cls.secondary_text_color if not root._active \
-            else root.active_color if root.active_color_type == "custom" \
-            else root._active_color if root.use_active else \
+            root.theme_cls.secondary_text_color if not root._active\
+            else root.active_color if root.active_color_type == "custom"\
+            else root._active_color if root.use_active else\
             root.theme_cls.secondary_text_color
 
     BoxLayout:
@@ -213,12 +212,12 @@ Builder.load_string('''
     NDBadgeLabel:
         id: _badge
         theme_text_color:
-            'Secondary' if not root._active else 'Custom' \
+            'Secondary' if not root._active else 'Custom'\
             if root.use_active else 'Custom'
         text_color:
-            root.theme_cls.secondary_text_color if not root._active \
-            else root.active_color if root.active_color_type == "custom" \
-            else root._active_color if root.use_active else \
+            root.theme_cls.secondary_text_color if not root._active\
+            else root.active_color if root.active_color_type == "custom"\
+            else root._active_color if root.use_active else\
             root.theme_cls.secondary_text_color
         text: root.badge_text
         halign: 'right'
@@ -263,13 +262,6 @@ class NavigationDrawerIconButton(OneLineIconListItem):
     _icon = ObjectProperty()
     divider = None
 
-    icon_color = ListProperty()
-    """Custom icon color.
-
-    :attr:`icon_color` is a :class:`~kivy.properties.ListProperty`
-    and defaults to [].
-    """
-
     active_color = ListProperty()
     """Custom active color.
     This option only takes effect when :attr:`active_color_type` = 'custom'.
@@ -279,7 +271,7 @@ class NavigationDrawerIconButton(OneLineIconListItem):
     """
 
     active_color_type = OptionProperty('primary',
-                                       options=['primary', 'accent', 'custom'])
+                                       options=['primary', 'accent', 'custom','Secondary'])
     """Decides which color should be used for the active color.
     This option only takes effect when :attr:`use_active` = True.
 
@@ -335,15 +327,15 @@ class NavigationDrawerIconButton(OneLineIconListItem):
     def _set_active(self, active, nav_drawer):
         if self.use_active:
             self._active = active
-            if nav_drawer.active_item != self:
-                if nav_drawer.active_item is not None:
-                    nav_drawer.active_item._active = False
+            #if nav_drawer.active_item != self:
+            #    if nav_drawer.active_item is not None:
+            #        nav_drawer.active_item._active = False
             nav_drawer.active_item = self
 
     def _set_active_color(self, *args):
         if self.active_color_type == 'primary':
             self._set_active_color_primary()
-        elif self.active_color_type == 'accent':
+        elif self.active_color_type == 'Secondary':
             self._set_active_color_accent()
 
     # Note to future developers/myself: These must be separate functions
@@ -352,8 +344,8 @@ class NavigationDrawerIconButton(OneLineIconListItem):
             self._active_color = self.theme_cls.primary_color
 
     def _set_active_color_accent(self, *args):
-        if self.active_color_type == 'accent':
-            self._active_color = self.theme_cls.accent_color
+        if self.active_color_type == 'Secondary':
+            self._active_color = self.theme_cls.secondary_text_color
 
     def on_icon(self, instance, value):
         super().__init__()
@@ -428,9 +420,10 @@ class MDNavigationDrawer(BoxLayout, ThemableBehavior,
         if issubclass(widget.__class__, BaseListItem):
             self._list.add_widget(widget, **kwargs)
             if len(self._list.children) == 1:
-                widget._active = True
-                self.active_item = widget
-            widget.bind(on_release=lambda x: self.panel.toggle_state())
+                #widget._active = True
+                #self.active_item = widget
+                pass
+            #widget.bind(on_release=lambda x: self.panel.toggle_state())
             try:
                 widget.bind(on_release=lambda x: x._set_active(True, self))
             except AttributeError:
